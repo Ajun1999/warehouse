@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        a{display: block;width: 100px;font-size: 32px;margin: 50px;}
+        #msg{width: 300px;height: 300px;font-size: 20px; display: none;background-color: rgb(70, 140, 180);position: absolute;}
+    </style>
+    <script>
+        /* window.onload = function(){
+            document.onmousedown = function(ev){
+                let e = ev ||window.event;
+                alert(e.button);
+            }
+        } */
+        let arr = ["一个玩了很多把的英雄，很喜欢但是有点可惜，拳头爸爸没把她加强","阿卡丽算是很秀的英雄，shy哥玩的很好，也是有点受他影响，也很爱玩这个英雄。","武器算是我上钻石的功臣，当时那个版本因为有吸蓝刀，所以几乎是个无敌的存在，虽然现在没以前厉害，但还是很猛"];
+        window.onload = function(){
+            let oA = document.getElementsByTagName("a");
+            let oMsg = document.getElementById("msg");
+
+            for(let i = 0; i < oA.length;i++){
+                oA[i].index = i;
+                oA[i].onmouseover = function(){
+                    oMsg.innerHTML = arr[this.index];
+                    oMsg.style.display = "block";
+                }
+                oA[i].onmouseout = function(){
+                    oMsg.style.display = "none";
+                }
+                //添加鼠标移动事件,先拿到事件对象。
+                oA[i].onmousemove = function(ev){
+                    let e = ev ||window.event;
+                    oMsg.style.left = e.clientX + 5 +"px";
+                    oMsg.style.top = e.clientY + 5 +"px";
+
+                }
+            }
+        }
+    </script>
+</head>
+<body>
+    <a href="#">锐雯</a>
+    <a href="#">阿卡丽</a>
+    <a href="#">武器</a>
+    <div id="msg"></div>
+</body>
+</html>

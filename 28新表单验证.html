@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #div1{width: 200px;
+        height: 200px;
+        border: 1px solid black;
+        margin: 100px auto;
+        padding: 30px;
+        text-align: center;
+        background-color: lightsteelblue;}
+        #div1 span{font-size: 12px;color:grey;display: block;margin-top: 5px;}
+        #div1 input{width: 180px;height:30px;font-size: 18px;margin-top: 5px;}
+        #div1 .testCode{width: 50px;height: 30px;line-height: 30px; 
+        color: white;background-color: grey;float: left;
+        margin-left: 12px;
+        margin-top: 10px;}
+    </style>
+    <script>
+        window.onload = function(){
+            var oUsername =document.getElementById("username");
+            var oSpan = document.getElementById("username_span");
+            var oPassword = document.getElementById("password");
+            var oDiv1 = document.getElementById("div1");
+            var oDivs = oDiv1.getElementsByClassName("testCode");
+            //用户名效果
+            oUsername.onblur = function(){
+                let oValue = oUsername.value;
+
+                if(oValue.length < 6 || oValue.length > 16){
+                    oSpan.innerHTML = "!长度应为6~16个字符";
+                    oSpan.style.color = "red";
+
+                }else if(!/[a-zA-z]/.test(oValue[0])){
+                    oSpan.innerHTML = "!邮件地址必须以英文字母开头";
+                    oSpan.style.color = "red";
+
+                }else if(/\W/.test(oValue)){
+                    oSpan.innerHTML = "!邮件地址需以字母、数字、下划线组成";
+                    oSpan.style.color = "red"; 
+                }else{
+                    oSpan.innerHTML = "√该用户名可注册";
+                    oSpan.style.color = "green";
+                }
+            }
+            //密码强度：弱、中、强
+            oPassword.onkeyup = function(){
+                let oValue = this.value;
+                //每次触发都将上一次的效果清空
+                for(let i = 0; i < oDivs.length; i++){
+                    oDivs[i].style.backgroundColor = "grey";
+                }
+                //如果把上面的循环语句放到if下面，灯就不会亮。代码从上而下执行，所以清空完效果，下面的效果才出现。
+                if(oValue.length >= 6){
+                    //开始密码强度验证
+                    if(/^\d+$/.test(oValue) || /^[a-z]+$/.test(oValue) || /^[A-Z]+$/.test(oValue) || oValue.length <= 8){
+                        oDivs[0].style.backgroundColor = "red";
+                    }else if(/\d/.test(oValue) && /[a-z]/.test(oValue) && /[A-Z]/.test(oValue) && oValue.length >= 13){
+                        oDivs[2].style.backgroundColor = "green";
+                    }else{
+                        oDivs[1].style.backgroundColor = "orange";
+                    }
+                }
+            }
+
+        }
+    </script>
+</head>
+<body>
+    <div id="div1">
+        <input id="username" type="text" placeholder="用户名"/>
+        <span id="username_span">6~18个字符,可使用字母、数字、下划线，需以字母开头。</span>
+        <input id="password" type="text" placeholder="密码"/>
+        <div class="testCode">弱</div> 
+        <div class="testCode">中</div>
+        <div class="testCode">强</div>
+    <div></div>
+</body>
+</html>
